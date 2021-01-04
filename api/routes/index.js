@@ -4,7 +4,6 @@ const db = require('../database/db');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const jwt = require('jsonwebtoken');
-const io = require('socket.io');
 
 app.post('/sign-up', function (req, res) {
   bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
@@ -36,10 +35,10 @@ app.post('/sign-in', function (req, res) {
           console.log('you are authenticated');
           let token = jwt.sign(
             {
-              user_id: result[0].id,
+              user_id: result[0].id_user,
               user_pseudo: pseudo,
             },
-            'secret',
+            'clouSecret',
             { expiresIn: '1h' }
           );
           res.status(200).send(token);
@@ -49,6 +48,36 @@ app.post('/sign-in', function (req, res) {
       });
     }
   );
+});
+
+app.get('/get-members', function (req, res) {
+  let sql = `SELECT * FROM users`;
+  db.query(sql, function (err, result) {
+    if (err) {
+      console.log(err);
+    } else {
+      //   let pseudo = result[0].pseudo;
+      //   res.send({ result: pseudo });
+      let resu = [];
+      for (let i = 0; i < result.length; i++) {
+        // console.log('res', result[i]);
+        resu.push(result[i].pseudo);
+      }
+      // console.log(result[i].pseudo);
+      res.send({ pseudo: resu });
+    }
+  });
+});
+
+app.get('/profil', function (req, res) {
+  let sql = `SELECT * FROM users WHERE id_user = '${req.body.id_user}'`;
+  db.query(sql, function (err, result) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
 });
 
 module.exports = app;
