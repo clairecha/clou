@@ -1,5 +1,5 @@
 <template>
-<div class="card mt-3">
+  <div class="card mt-3">
       <div class="card-body">
           <div class="card-title">
               <h3>Chat Group</h3>
@@ -14,36 +14,34 @@
       <div class="card-footer">
           <form @submit.prevent="sendMessage">
               <div class="gorm-group">
-                  <label for="user">Nom d'utilisateur:</label>
+                  <label for="user">User:</label>
                   <input type="text" v-model="user" class="form-control">
               </div>
               <div class="gorm-group pb-3">
                   <label for="message">Message:</label>
                   <input type="text" v-model="message" class="form-control">
               </div>
-              <button type="submit" class="btn btn-success">Envoyer</button>
+              <button type="submit" class="btn btn-success">Send</button>
           </form>
       </div>
   </div>
 </template>
- 
+
 <script>
 import io from 'socket.io-client';
 export default {
-     name: 'Chat',
-   
     data() {
         return {
             user: '',
             message: '',
-            messages: '',
-            socket : io('localhost:3000')
+            messages: [],
+            socket : io('localhost:3001')
         }
     },
     methods: {
         sendMessage(e) {
             e.preventDefault();
- 
+            
             this.socket.emit('SEND_MESSAGE', {
                 user: this.user,
                 message: this.message
@@ -53,9 +51,12 @@ export default {
     },
     mounted() {
         this.socket.on('MESSAGE', (data) => {
-            this.messages = this.messages, data;
+            this.messages = [...this.messages, data];
             // you can also do this.messages.push(data)
         });
     }
 }
 </script>
+
+<style>
+</style>
