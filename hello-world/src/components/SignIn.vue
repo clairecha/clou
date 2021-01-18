@@ -32,7 +32,7 @@
       </b-form-group>
 
       <b-button @click="clickAdd()" type="submit" variant="primary"
-        >Submit</b-button
+        >Se connecter</b-button
       >
     </b-form>
   </div>
@@ -91,3 +91,8 @@ export default {
   },
 };
 </script>
+
+<style>
+
+
+</style>

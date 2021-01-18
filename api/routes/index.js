@@ -13,7 +13,8 @@ app.post('/sign-up', function (req, res) {
       email: req.body.email,
       password: req.body.password,
     };
-    var sql = `INSERT INTO users (id_user, pseudo, email, password) VALUES ('${req.body.id_user}','${req.body.pseudo}', '${req.body.email}', '${hash}');`;
+    var sql = `INSERT INTO users (id_user, pseudo, email, password) VALUES 
+    ('${req.body.id_user}','${req.body.pseudo}', '${req.body.email}', '${hash}');`;
     db.query(sql, function (err, result) {
       if (err) throw err;
       console.log('1 record inserted');

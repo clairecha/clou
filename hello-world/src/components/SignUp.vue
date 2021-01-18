@@ -26,21 +26,21 @@
         </div>
       </b-form-group>
 
-      <b-form-group id="input-group-2" label="Your Name:" label-for="input-2">
+      <b-form-group id="input-group-2" label="Your pseudo:" label-for="input-2">
         <b-form-input
           class="input"
           :class="{ error: $v.name.$error }"
           id="input-2"
-          v-model="form.name"
-          @input="$v.name.$touch()"
+          v-model="form.pseudo"
+          @input="$v.pseudo.$touch()"
           required
-          placeholder="Enter name"
-          ><p v-if="$v.name.$error" class="error-msg">
-            Please fill the name
+          placeholder="Enter pseudo"
+          ><p v-if="$v.pseudo.$error" class="error-msg">
+            Please fill the pseudo
           </p></b-form-input
         >
-        <div v-if="$v.name.$dirty">
-          <p class="error-message" v-if="!$v.name.required">
+        <div v-if="$v.pseudo.$dirty">
+          <p class="error-message" v-if="!$v.pseudo.required">
             Name must not be empty.
           </p>
         </div>
@@ -88,8 +88,8 @@ export default {
   data() {
     return {
       form: {
+        pseudo: '',
         email: '',
-        name: '',
         password: '',
       },
     };
