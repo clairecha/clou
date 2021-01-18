@@ -1,22 +1,19 @@
 <template>
   <div id="app">
-    <!-- <HelloWorld msg="Welcome to Your Vue.js App" /> -->
     <Chat />
   </div>
 </template>
 
-<script>
-// import HelloWorld from './components/HelloWorld.vue';
-import Chat from './components/Chat.vue';
 
+<script>
+import Chat from './components/Chat';
 
 export default {
   name: 'App',
   components: {
-    // HelloWorld,
-    Chat,
+    Chat
   },
-};
+}
 </script>
 
 <style>
