@@ -72,7 +72,7 @@ export default {
         .post('http://localhost:3000/sign-in', this.form)
         .then((response) => {
           if (response.data == 'sorry we dont know this user') {
-            console.log('perdu');
+            console.log(response.data);
           } else {
             var decoded = jwt.decode(response.data);
             this.$store.dispatch('addToken', response.data);
