@@ -28,25 +28,29 @@ app.post('/sign-in', function (req, res) {
     `select * FROM users where email = '${req.body.email}'`,
     function (err, result) {
       if (err) throw err;
-      // let id = result[0].id;
-      let pseudo = result[0].pseudo;
-      let hash = result[0].password;
-      bcrypt.compare(`${req.body.password}`, hash, function (err, resulta) {
-        if (resulta) {
-          console.log('you are authenticated');
-          let token = jwt.sign(
-            {
-              user_id: result[0].id_user,
-              user_pseudo: pseudo,
-            },
-            'clouSecret',
-            { expiresIn: '1h' }
-          );
-          res.status(200).send(token);
-        } else {
-          res.status(200).send('sorry we dont know this user');
-        }
-      });
+
+      if (!result.length) res.status(203).send('sorry we dont know this user');
+      else {
+        // let id = result[0].id;
+        let pseudo = result[0].pseudo;
+        let hash = result[0].password;
+        bcrypt.compare(`${req.body.password}`, hash, function (err, resulta) {
+          if (resulta) {
+            console.log('you are authenticated');
+            let token = jwt.sign(
+              {
+                user_id: result[0].id_user,
+                user_pseudo: pseudo,
+              },
+              'clouSecret',
+              { expiresIn: '1h' }
+            );
+            res.status(200).send(token);
+          } else {
+            res.status(200).send('sorry we dont know this user');
+          }
+        });
+      }
     }
   );
 });
