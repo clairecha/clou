@@ -2,20 +2,20 @@
   <div>
     <b-tabs content-class="mt-3">
       <b-tab title="SignIn" active><SignIn /> </b-tab>
-      <!-- <b-tab title="SignUp" active><SignUp /> </b-tab> -->
+      <b-tab title="SignUp" ><SignUp /> </b-tab>
     </b-tabs>
   </div>
 </template>
 
 <script>
 import SignIn from "./SignIn";
-// import SignUp from "./SignUp";
+import SignUp from "./SignUp";
 
 export default {
   name: "Form",
   components: {
     SignIn,
-    // SignUp,
+    SignUp,
   },
 };
 </script>

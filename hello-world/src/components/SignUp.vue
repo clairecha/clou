@@ -1,5 +1,7 @@
 <template>
   <div>
+    <h4>SIGN-UP</h4>
+    
     <b-form>
       <b-form-group
         id="input-group-1"
