@@ -3,12 +3,14 @@
   <b-container>
       <h1>Connexion</h1>
       <Form />
+      <!-- <Header/> -->
     </b-container>
   
 </template>
 
 <script>
 import Form from './Form';
+// import Header from './Header';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 
@@ -16,6 +18,7 @@ export default {
   name: 'App',
   components: {
     Form,
+    // Header,
   },
 };
 </script>
