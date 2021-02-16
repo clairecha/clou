@@ -2,15 +2,18 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const routes = require('./routes/index');
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+// const io = require('socket.io')(server);
+// const http = require('http').createServer(app);
 
-const server = app.listen(3000, function () {
+app.listen(3000, function () {
   console.log('server running on port 3000');
 });
 
-const io = require('socket.io')(server);
-
 io.on('connection', function (socket) {
   console.log(socket.id);
+  console.log('socketConnection');
   socket.on('SEND_MESSAGE', function (data) {
     io.emit('MESSAGE', data);
   });
