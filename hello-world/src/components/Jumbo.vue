@@ -32,6 +32,12 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+.tab-content>.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* width: 100%; */
+}
 .container {    
     background-color: #4E538B;
     border-radius: 15px;

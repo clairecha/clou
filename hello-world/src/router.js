@@ -2,6 +2,8 @@ import Vue from 'vue';
 import store from './store';
 import Dashboard from './components/Dashboard';
 import Jumbo from './components/Jumbo';
+import SignIn from './components/SignIn';
+import SignUp from './components/SignUp';
 import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
@@ -15,6 +17,8 @@ const routes = [
       requireAuth: true,
     },
   },
+  { path: '/sign-in', component: SignIn },
+  { path: '/sign-up', component: SignUp },
   {
     path: '/',
     component: Jumbo,

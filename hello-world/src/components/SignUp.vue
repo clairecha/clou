@@ -1,126 +1,136 @@
+https://www.positronx.io/vue-js-forms-tutorial-form-validation-in-vue-with-vuelidate/
+
 <template>
-  <div>
-    <h4>SIGN-UP</h4>
-    
-    <b-form>
-      <b-form-group
-        id="input-group-1"
-        label="Email address:"
-        label-for="input-1"
-      >
-        <b-form-input
-          class="input"
-          :class="{ error: $v.email.$error }"
-          id="input-1"
-          v-model="form.email"
-          @input="$v.email.$touch()"
-          type="email"
-          required
-          placeholder="Enter email"
-        ></b-form-input>
-        <div v-if="$v.email.$dirty">
-          <p class="error-message" v-if="!$v.email.email">
-            Please enter a valid email address.
-          </p>
-          <p class="error-message" v-if="!$v.email.required">
-            Email must not be empty.
-          </p>
-        </div>
-      </b-form-group>
+    <div class="container" style="max-width: 500px; text-align: left">
 
-      <b-form-group id="input-group-2" label="Your Name:" label-for="input-2">
-        <b-form-input
-          class="input"
-          :class="{ error: $v.name.$error }"
-          id="input-2"
-          v-model="form.name"
-          @input="$v.name.$touch()"
-          required
-          placeholder="Enter name"
-          ><p v-if="$v.name.$error" class="error-msg">
-            Please fill the name
-          </p></b-form-input
-        >
-        <div v-if="$v.name.$dirty">
-          <p class="error-message" v-if="!$v.name.required">
-            Name must not be empty.
-          </p>
-        </div>
-      </b-form-group>
+        <!-- <div class="alert alert-success" role="alert">
+            <h2 class="alert-heading">Vue Form Validation Example</h2>
+        </div> -->
+<router-link to="/sign-up" class="btn btn-link">S'inscrire</router-link><router-link to="/sign-in" class="btn btn-link">Se connecter</router-link>
+        <form @submit.prevent="handleSubmit">
+            <div class="form-group">
+                <label for="name">Pseudo</label>
+                <input type="text" v-model="userForm.pseudo" id="name" name="name" class="form-control"
+                    :class="{ 'is-invalid': isSubmitted && $v.userForm.pseudo.$error }" />
+                <div v-if="isSubmitted && !$v.userForm.pseudo.required" class="invalid-feedback">Pseudo field is required</div>
+            </div>
 
-      <b-form-group
-        id="input-group-3"
-        label="Your password:"
-        label-for="input-3"
-      >
-        <b-form-input
-          class="input"
-          :class="{ error: $v.name.$error }"
-          type="password"
-          id="input-3"
-          v-model="form.password"
-          @input="$v.password.$touch()"
-          required
-          placeholder="Enter password"
-        ></b-form-input>
-        <div v-if="$v.password.$dirty">
-          <p class="error-message" v-if="!$v.password.required">
-            Password must not be empty.
-          </p>
-        </div>
-      </b-form-group>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" v-model="userForm.email" id="email" name="email" class="form-control"
+                    :class="{ 'is-invalid': isSubmitted && $v.userForm.email.$error }" />
+                <div v-if="isSubmitted && $v.userForm.email.$error" class="invalid-feedback">
+                    <span v-if="!$v.userForm.email.required">Email field is required</span>
+                    <span v-if="!$v.userForm.email.email">Please provide valid email</span>
+                </div>
+            </div>
 
-      <b-button
-        :disabled="$v.$invalid"
-        type="submit"
-        variant="primary"
-        @click="clickAdd()"
-        >Submit</b-button
-      >
-    </b-form>
-  </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" v-model="userForm.password" id="password" name="password" class="form-control"
+                    :class="{ 'is-invalid': isSubmitted && $v.userForm.password.$error }" />
+                <div v-if="isSubmitted && $v.userForm.password.$error" class="invalid-feedback">
+                    <span v-if="!$v.userForm.password.required">Password field is required</span>
+                    <span v-if="!$v.userForm.password.minLength">Password should be at least 5 characters long</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <button @click="clickAdd()" class="btn btn-danger btn-block">S'inscrire</button>
+            </div>
+         
+        </form>
+        
+    </div>
 </template>
 
 <script>
-import axios from 'axios';
-import { required, minLength, email } from 'vuelidate/lib/validators';
+// import { mapState, mapActions } from 'vuex'
 
-export default {
-  name: 'SignUp',
-  data() {
-    return {
-      form: {
-        email: '',
-        name: '',
-        password: '',
-      },
-    };
-  },
-  validations: {
-    name: {
-      required,
-    },
-    email: {
-      required,
-      email,
-    },
-    password: { required, minLength: minLength(8) },
-  },
-  methods: {
-    clickAdd() {
-      console.log('toto', this.form);
+import axios from 'axios';
+    import {
+        required,
+        email,
+        minLength,
+
+    } from "vuelidate/lib/validators";
+
+    export default {
+        name: 'SignUp',
+        data() {
+            return {
+                userForm: {
+                    pseudo: "",
+                    email: "",
+                    password: "",
+                    accept: ""
+                },
+                isSubmitted: false
+            };
+        },
+        validations: {
+            userForm: {
+                pseudo: {
+                    required
+                },
+                email: {
+                    required,
+                    email
+                },
+                password: {
+                    required,
+                    minLength: minLength(5)
+                },
+                accept: {
+                    required (val) {
+                      return val
+                    }
+                }
+            }
+        },
+        methods: {
+            handleSubmit() {
+                this.isSubmitted = true;
+
+                this.$v.$touch();
+                if (this.$v.$invalid) {
+                this.$router.push('/sign-in');
+                    return;
+                }
+
+                alert("SUCCESS!" + JSON.stringify(this.userForm));
+            },
+            clickAdd() {
+      console.log('toto', this.userForm);
       axios
-        .post('http://localhost:3000/sign-up', this.form)
+        .post('http://localhost:3000/sign-up', this.userForm)
         .then((response) => console.log(response))
+        
 
         .catch((error) => {
           console.log(error);
         });
     },
-  },
-};
+        }
+    };
 </script>
+
+
 <style>
+.container {    
+    background-color: #4E538B;
+    border-radius: 15px;
+    /* border: 4px solid black; */
+    color: white;
+    width: 40vw;
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.template{
+    width: 40%;
+}
 .error-message {
   color: red;
 }

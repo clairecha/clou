@@ -1,5 +1,9 @@
 <template>
-  <div>
+  <div style="max-width: 500px; text-align: left">
+
+    <router-link to="/sign-up" class="btn btn-link">S'inscrire</router-link>
+    <router-link to="/sign-in" class="btn btn-link" >Se connecter</router-link>
+
     <b-form @submit="onsubmit">
       <b-form-group
         id="input-group-1"
@@ -30,7 +34,8 @@
           placeholder="Enter password"
         ></b-form-input>
       </b-form-group>
-
+    
+<br>
       <b-button @click="clickAdd()" type="submit" variant="primary"
         >Se connecter</b-button
       >
@@ -39,6 +44,8 @@
 </template>
 
 <script>
+// import { mapState, mapActions } from 'vuex'
+
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import { required, minLength, email } from 'vuelidate/lib/validators';
@@ -94,5 +101,35 @@ export default {
 
 <style>
 
-
+.error-message {
+  color: red;
+}
+input:focus {
+  outline: none;
+}
+.error {
+  border: 1px solid red;
+}
+.form {
+  display: inline-block;
+  text-align: center;
+  width: 49%;
+}
+.validators {
+  display: inline-block;
+  width: 49%;
+  text-align: center;
+  vertical-align: top;
+}
+.input {
+  padding: 5px;
+}
+element.style {
+    max-width: 500px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 </style>
