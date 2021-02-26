@@ -4,18 +4,18 @@ import vuex from 'vuex';
 import router from './router';
 import store from './store';
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap-vue/dist/bootstrap-vue.css';
 import Vuelidate from 'vuelidate';
 import 'bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
-// ----------------------------------------
 // import socketio from 'socket.io';
 // import VueSocketIO from 'vue-socket.io';
 
-// export const SocketInstance = socketio('http://localhost:4113');
+// export const SocketInstance = socketio('http://localhost:8083');
 
-// Vue.use(VueSocketIO, SocketInstance)
-// // ----------------------------------------
+// Vue.use(VueSocketIO, SocketInstance);
+// ----------------------------------------
 
 Vue.config.productionTip = false;
 

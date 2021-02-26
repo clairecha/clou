@@ -3,16 +3,13 @@ const app = express();
 const cors = require('cors');
 const routes = require('./routes/index');
 const http = require('http').Server(app);
-// const io = require('socket.io')(http);
 
 const io = require('socket.io')(http, {
   cors: {
-    origins: 'http://localhost:3000',
+    origin: 'http://localhost:3000',
     methods: ['GET', 'POST'],
   },
 });
-// const io = require('socket.io')(server);
-// const http = require('http').createServer(app);
 
 app.listen(3000, function () {
   console.log('server running on port 3000');
@@ -35,7 +32,12 @@ const allowCrossDomain = function (req, res, next) {
   next();
 };
 app.use(allowCrossDomain);
-app.use(cors());
+app.use(
+  cors({
+    credentials: true,
+    origin: 'http://localhost:8083',
+  })
+);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use('/', routes);
