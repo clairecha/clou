@@ -1,11 +1,5 @@
 <template>
- 
-  <b-container>
-      <h1>Connexion</h1>
-      <Form />
-      <!-- <Header/> -->
-    </b-container>
-  
+<Form />
 </template>
 
 <script>
@@ -56,5 +50,6 @@ export default {
     background-color: #4E538B;
 
 }
+
 
 </style>

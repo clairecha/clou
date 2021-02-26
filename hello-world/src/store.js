@@ -11,6 +11,8 @@ const store = new Vuex.Store({
     name: '',
     id: '',
     contacts: [],
+    pseudo: '',
+
   },
   mutations: {
     ADD_TOKEN: (state, token) => {
@@ -29,6 +31,9 @@ const store = new Vuex.Store({
     ADD_CONTACT: (state, contact) => {
       state.contacts.push(contact);
     },
+    ADD_PSEUDO: (state, pseudo) => {
+      state.pseudo.push(pseudo);
+    },
   },
   getters: {
     tokens: (state) => {
@@ -42,6 +47,9 @@ const store = new Vuex.Store({
     },
     contact: (state) => {
       return state.contacts;
+    },
+    pseudo: (state) => {
+      return state.pseudo;
     },
   },
   actions: {
@@ -59,6 +67,9 @@ const store = new Vuex.Store({
     },
     addContact(context, contact) {
       context.commit('ADD_CONTACT', contact);
+    },
+    addPseudo(context, pseudo) {
+      context.commit('ADD_PSEUDO', pseudo);
     },
   },
   plugins: [createPersistedState()],

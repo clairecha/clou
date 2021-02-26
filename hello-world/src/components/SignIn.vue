@@ -1,9 +1,12 @@
 <template>
-  <div style="max-width: 500px; text-align: left">
-
+<b-container>
+<h1>Connexion</h1>
+  <div class="container" style="max-width: 500px; text-align: left">
+    
+<div >
     <router-link to="/sign-up" class="btn btn-link">S'inscrire</router-link>
-    <router-link to="/sign-in" class="btn btn-link" >Se connecter</router-link>
-
+    <router-link to="/" class="btn btn-link" >Se connecter</router-link>
+</div>
     <b-form @submit="onsubmit">
       <b-form-group
         id="input-group-1"
@@ -41,6 +44,7 @@
       >
     </b-form>
   </div>
+  </b-container>
 </template>
 
 <script>
@@ -84,9 +88,10 @@ export default {
             var decoded = jwt.decode(response.data);
             this.$store.dispatch('addToken', response.data);
             this.$store.dispatch('addName', decoded.user_name);
+            this.$store.dispatch('addName', decoded.user_pseudo);
             this.$store.dispatch('addId', decoded.user_id);
             console.log('token', response.data);
-            console.log(decoded);
+            console.log('pseudo =',decoded.user_pseudo);
             this.$router.push('/dashboard');
           }
         })
@@ -103,6 +108,13 @@ export default {
 
 .error-message {
   color: red;
+}
+.container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
 }
 input:focus {
   outline: none;
@@ -132,4 +144,5 @@ element.style {
     justify-content: center;
     align-items: center;
 }
+
 </style>

@@ -13,15 +13,15 @@
       </div>
       <div class="card-footer">
           <form @submit.prevent="sendMessage">
-              <div class="gorm-group">
+              <!-- <div class="gorm-group">
                   <label for="user">User:</label>
                   <input type="text" v-model="user" class="form-control">
-              </div>
+              </div> -->
               <div class="gorm-group pb-3">
                   <label for="message">Message:</label>
                   <input type="text" v-model="message" class="form-control">
               </div>
-              <button type="submit" class="btn btn-success">Send</button>
+              <button   type="submit" class="btn btn-success">Send</button>
           </form>
       </div>
   </div>
@@ -35,7 +35,7 @@ export default {
             user: '',
             message: '',
             messages: [],
-            socket : io('localhost:3001')
+            socket : io('localhost:3000')
         }
     },
     methods: {
@@ -44,17 +44,32 @@ export default {
             
             this.socket.emit('SEND_MESSAGE', {
                 user: this.user,
-                message: this.message
+                message: this.message,
+                
             });
-            this.message = ''
+            this.message = '';
+            console.log('msg',this.message );
+
         }
     },
     mounted() {
         this.socket.on('MESSAGE', (data) => {
             this.messages = [...this.messages, data];
+            console.log('MESSSAAAAGEE', this.message, data);
+
             // you can also do this.messages.push(data)
         });
-    }
+    },
+    // clickAdd() {
+    //   console.log('mousage', this.message);
+    // //   axios
+    // //     .post('http://localhost:3000/sign-up', this.userForm)
+    // //     .then((response) => console.log(response))
+    // //     .catch((error) => {
+    // //       console.log(error);
+    // //     });
+    // },
+    
 }
 </script>
 

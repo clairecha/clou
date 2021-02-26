@@ -1,12 +1,15 @@
 https://www.positronx.io/vue-js-forms-tutorial-form-validation-in-vue-with-vuelidate/
 
 <template>
+ <b-container>
+      <h1>Connexion</h1>
+      <!-- <Header/> -->
+   
     <div class="container" style="max-width: 500px; text-align: left">
-
-        <!-- <div class="alert alert-success" role="alert">
-            <h2 class="alert-heading">Vue Form Validation Example</h2>
-        </div> -->
-<router-link to="/sign-up" class="btn btn-link">S'inscrire</router-link><router-link to="/sign-in" class="btn btn-link">Se connecter</router-link>
+<div>
+<router-link to="/sign-up" class="btn btn-link">S'inscrire</router-link>
+<router-link to="/" class="btn btn-link">Se connecter</router-link>
+</div>
         <form @submit.prevent="handleSubmit">
             <div class="form-group">
                 <label for="name">Pseudo</label>
@@ -42,10 +45,12 @@ https://www.positronx.io/vue-js-forms-tutorial-form-validation-in-vue-with-vueli
         </form>
         
     </div>
+ </b-container>
 </template>
 
 <script>
 // import { mapState, mapActions } from 'vuex'
+// import jwt from 'jsonwebtoken';
 
 import axios from 'axios';
     import {
@@ -105,8 +110,6 @@ import axios from 'axios';
       axios
         .post('http://localhost:3000/sign-up', this.userForm)
         .then((response) => console.log(response))
-        
-
         .catch((error) => {
           console.log(error);
         });
@@ -145,6 +148,7 @@ input:focus {
   text-align: center;
   width: 49%;
 }
+
 .validators {
   display: inline-block;
   width: 49%;

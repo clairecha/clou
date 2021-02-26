@@ -8,6 +8,15 @@ import Vuelidate from 'vuelidate';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+// ----------------------------------------
+// import socketio from 'socket.io';
+// import VueSocketIO from 'vue-socket.io';
+
+// export const SocketInstance = socketio('http://localhost:4113');
+
+// Vue.use(VueSocketIO, SocketInstance)
+// // ----------------------------------------
+
 Vue.config.productionTip = false;
 
 Vue.use(Vuelidate);
