@@ -2,14 +2,14 @@ https://www.positronx.io/vue-js-forms-tutorial-form-validation-in-vue-with-vueli
 
 <template>
  <b-container>
-      <h1>Connexion</h1>
+      <!-- <h1>Connexion</h1> -->
       <!-- <Header/> -->
    
     <div class="container" style="max-width: 500px; text-align: left">
-<div>
+<!-- <div>
 <router-link to="/sign-up" class="btn btn-link">S'inscrire</router-link>
 <router-link to="/" class="btn btn-link">Se connecter</router-link>
-</div>
+</div> -->
         <form @submit.prevent="handleSubmit">
             <div class="form-group">
                 <label for="name">Pseudo</label>

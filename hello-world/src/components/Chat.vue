@@ -36,7 +36,7 @@ export default {
             user: '',
             message: '',
             messages: [],
-            socket : io('localhost:3000')
+            socket: io('localhost:3000', {withCredentials: true})
         }
     },
     methods: {
@@ -54,6 +54,7 @@ export default {
         }
     },
     mounted() {
+        console.log('WESH ALORS', this.socket)
         this.socket.on('MESSAGE', (data) => {
             this.messages = [...this.messages, data];
             console.log('MESSSAAAAGEE', this.message, data);
@@ -75,4 +76,9 @@ export default {
 </script>
 
 <style>
+.card {
+    background-color: #4E538B;
+
+}
+
 </style>

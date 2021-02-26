@@ -1,12 +1,12 @@
 <template>
 <b-container>
-<h1>Connexion</h1>
+<!-- <h1>Connexion</h1> -->
   <div class="container" style="max-width: 500px; text-align: left">
     
-<div >
+<!-- <div >
     <router-link to="/sign-up" class="btn btn-link">S'inscrire</router-link>
     <router-link to="/" class="btn btn-link" >Se connecter</router-link>
-</div>
+</div> -->
     <b-form @submit="onsubmit">
       <b-form-group
         id="input-group-1"
