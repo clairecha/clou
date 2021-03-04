@@ -1,16 +1,23 @@
 <template>
-  <div>{{ nameG }}</div>
+
+  <div class="pseudo">{{ pseudo }}</div>
 </template>
 
 <script>
 export default {
   name: 'ConnectedHeader',
   computed: {
-    nameG() {
-      return this.$store.getters.name;
+    pseudo() {
+      console.log('pseudo', this.$store.getters.id);
+      return this.$store.getters.pseudo;
     },
+   
   },
 };
 </script>
 
-<style></style>
+<style>
+.pseudo {
+  color: white;
+}
+</style>

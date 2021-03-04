@@ -13,7 +13,7 @@ app.post('/sign-up', function (req, res) {
       email: req.body.email,
       password: req.body.password,
     };
-    var sql = `INSERT INTO users (id_user, pseudo, email, password) VALUES 
+    const sql = `INSERT INTO users (id_user, pseudo, email, password) VALUES 
     ('${req.body.id_user}','${req.body.pseudo}', '${req.body.email}', '${hash}');`;
     db.query(sql, function (err, result) {
       if (err) throw err;
@@ -31,19 +31,15 @@ app.post('/sign-in', function (req, res) {
 
       if (!result.length) res.status(203).send('sorry we dont know this user');
       else {
-        // let id = result[0].id;
         let pseudo = result[0].pseudo;
         let hash = result[0].password;
         bcrypt.compare(`${req.body.password}`, hash, function (err, resulta) {
           if (resulta) {
             console.log('you are authenticated');
             let token = jwt.sign(
-              {
-                user_id: result[0].id_user,
-                user_pseudo: pseudo,
-              },
+              {user_id: result[0].id_user, user_pseudo: pseudo},
               'clouSecret',
-              { expiresIn: '1h' }
+              {expiresIn: '1h'}
             );
             res.status(200).send(token);
           } else {
@@ -55,27 +51,34 @@ app.post('/sign-in', function (req, res) {
   );
 });
 
-app.get('/get-members', function (req, res) {
+app.get('/members', function (req, res) {
   let sql = `SELECT * FROM users`;
   db.query(sql, function (err, result) {
     if (err) {
       console.log(err);
     } else {
-      //   let pseudo = result[0].pseudo;
-      //   res.send({ result: pseudo });
       let resu = [];
       for (let i = 0; i < result.length; i++) {
-        // console.log('res', result[i]);
-        resu.push(result[i].pseudo);
+        resu.push(result[i]);
       }
-      // console.log(result[i].pseudo);
-      res.send({ pseudo: resu });
+      res.send({pseudo: resu});
     }
   });
 });
 
 app.get('/profil', function (req, res) {
   let sql = `SELECT * FROM users WHERE id_user = '${req.body.id_user}'`;
+  db.query(sql, function (err, result) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
+
+app.get('/users:id', function (req, res) {
+  let sql = `SELECT pseudo FROM users WHERE id_user = '${req.body.id_user}'`;
   db.query(sql, function (err, result) {
     if (err) {
       console.log(err);

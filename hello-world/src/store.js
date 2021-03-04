@@ -1,78 +1,61 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
-import 'es6-promise/auto';
-import createPersistedState from 'vuex-persistedstate';
+import "es6-promise/auto";
+import Vue from "vue";
+import Vuex from "vuex";
+import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
-    tokens: false,
-    name: '',
-    id: '',
-    contacts: [],
-    pseudo: '',
-
+    token: false,
+    user: {
+      name: "",
+      id: "",
+    }
   },
   mutations: {
     ADD_TOKEN: (state, token) => {
-      state.tokens = token;
-      console.log(state.tokens);
+      state.token = token;
+      console.log(state.token);
     },
-    REMOVE_TOKEN: (state) => {
-      state.tokens = false;
+    REMOVE_TOKEN: state => {
+      state.token = false;
     },
-    ADD_NAME: (state, name) => {
-      state.name = name;
+    ADD_PSEUDO: (state, pseudo) => {
+      state.pseudo = pseudo;
     },
     ADD_ID: (state, id) => {
       state.id = id;
     },
-    ADD_CONTACT: (state, contact) => {
-      state.contacts.push(contact);
-    },
-    ADD_PSEUDO: (state, pseudo) => {
-      state.pseudo.push(pseudo);
-    },
   },
   getters: {
-    tokens: (state) => {
-      return state.tokens;
+    token: state => {
+      return state.token;
     },
-    name: (state) => {
-      return state.name;
-    },
-    id: (state) => {
-      return state.id;
-    },
-    contact: (state) => {
-      return state.contacts;
-    },
-    pseudo: (state) => {
+    pseudo: state => {
       return state.pseudo;
     },
+    id: state => {
+      return state.id;
+    },
+
   },
   actions: {
     addToken(context, token) {
-      context.commit('ADD_TOKEN', token); //pour l'envoyer à la mutation
+      context.commit("ADD_TOKEN", token); //pour l'envoyer à la mutation
     },
     removeToken(context) {
-      context.commit('REMOVE_TOKEN');
+      context.commit("REMOVE_TOKEN");
     },
     addId(context, id) {
-      context.commit('ADD_ID', id);
-    },
-    addName(context, name) {
-      context.commit('ADD_NAME', name);
-    },
-    addContact(context, contact) {
-      context.commit('ADD_CONTACT', contact);
+      context.commit("ADD_ID", id);
     },
     addPseudo(context, pseudo) {
-      context.commit('ADD_PSEUDO', pseudo);
+      context.commit("ADD_PSEUDO", pseudo);
     },
+  
   },
-  plugins: [createPersistedState()],
+  plugins: [createPersistedState()]
 });
 
 export default store;
