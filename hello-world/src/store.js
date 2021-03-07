@@ -7,11 +7,10 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
-    token: false,
-    user: {
-      name: "",
+    token: false, 
+    pseudo: "",
       id: "",
-    }
+    
   },
   mutations: {
     ADD_TOKEN: (state, token) => {

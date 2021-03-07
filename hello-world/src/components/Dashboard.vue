@@ -91,13 +91,16 @@ export default {
   flex-direction: row;
 }
 template{
+    background-color: #4e538b;
+
   width: auto;
 }
 
 .member {
-  /* border: 4px solid black; */
-  width: 20%;
-
+  border: 4px solid #4E538B;
+  width: 15%;
+  margin-top: 3%;
+  margin-left: 3%;
   text-align: center;
 }
 .navbar {
@@ -110,6 +113,9 @@ template{
   background-color: #4e538b;
   display: flex;
   height: 600px;
+}
+.nav-tabs {
+    border-bottom: 0px solid #dee2e6;
 }
 
 </style>

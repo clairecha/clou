@@ -1,8 +1,14 @@
 https://www.positronx.io/vue-js-forms-tutorial-form-validation-in-vue-with-vuelidate/
 
 <template>
-  <b-container>
+  
     <div class="container" style="max-width: 500px; text-align: left">
+			<!-- <h2>CONNEXION</h2> -->
+
+    <!-- <div >
+		<router-link to="/sign-up" class="btn btn-link">S'inscrire</router-link>
+		<router-link to="/sign-in" class="btn btn-link" >Se connecter</router-link>
+</div> -->
       <div v-if="status === 'ERROR'" class="global-message error">
         ERROR: Please do the right thing 🤙
       </div>
@@ -82,13 +88,11 @@ https://www.positronx.io/vue-js-forms-tutorial-form-validation-in-vue-with-vueli
         </div>
         <br />
         <div class="form-group">
-          <button type="submit" class="btn btn-primary btn-block">
-            S'inscrire
-          </button>
+         
+          <b-button type="submit" variant="primary">S'inscrire</b-button><router-link to="/sign-in" class="btn btn-link" >Se connecter</router-link>
         </div>
       </form>
     </div>
-  </b-container>
 </template>
 
 <script>
@@ -156,7 +160,7 @@ export default {
 <style>
 
 .container {
-  background-color: #4e538b;
+ /* background-color: #4e538b; */
   border-radius: 15px;
   color: white;
   width: 40vw;
@@ -164,7 +168,10 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  box-shadow: 0.2px 0.2px 2px #585c88;
+  /* box-shadow: 0.2px 0.2px 2px #585c88;	 */
+  margin-right: 2px;
+  margin-left: 2px;
+  padding-top: 20%;
 }
 
 .template {

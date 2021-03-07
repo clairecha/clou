@@ -1,23 +1,16 @@
 <template>
-<div id="wrip" >
+  <div id="wrip">
     <div class="card-body">
-      <div class="card-title">
-        
-       
-      </div>
+      <div class="card-title"></div>
       <div class="over">
-        <div class="card-body">
-          <div class="messages" v-for="(msg, index) in messages" :key="index">
-            <p>
-              <span class="font-weight-bold"
-                >{{ msg.pseudo }}: </span
-              >{{ msg.message }}
-            </p>
-          </div>
+        <div class="messages" v-for="(msg, index) in messages" :key="index">
+          <p :ref="index">
+            <span class="font-weight-bold">{{ msg.pseudo }}: </span
+            >{{ msg.content }}
+          </p>
         </div>
       </div>
-   
-    
+
       <form @submit.prevent="sendMessage">
         <div class="gorm-group">
           <!-- <label for="pseudo">pseudo:</label> -->
@@ -25,8 +18,14 @@
         </div>
         <div class="gorm">
           <!-- <label for="message">Message:</label> -->
-          <input placeholder="Entrer votre message ..." type="text" v-model="message" class="form-control" />
-        <button type="submit" class="btn btn-light">Envoyer</button></div>
+          <input
+            placeholder="Entrer votre message ..."
+            type="text"
+            v-model="content"
+            class="form-control"
+          />
+          <button type="submit" class="btn btn-light">Envoyer</button>
+        </div>
       </form>
     </div>
   </div>
@@ -37,22 +36,24 @@ import io from 'socket.io-client';
 import axios from 'axios';
 
 export default {
-  
   data() {
     return {
       pseudo: '',
       id: Boolean,
-      message: '',
+      content: '',
       messages: [],
       socket: io('localhost:3000', {withCredentials: true}),
+      // getMessages: '',
     };
   },
-  
+
   computed: {
     pseudoState() {
       return this.$store.getters.pseudo;
     },
-   
+    idState() {
+      return this.$store.getters.id;
+    },
   },
 
   methods: {
@@ -61,34 +62,45 @@ export default {
 
       this.socket.emit('SEND_MESSAGE', {
         pseudo: this.pseudoState,
-        message: this.message,
+        content: this.content,
+        id: this.idState,
       });
-      this.message = '';
-      console.log('msg', this.message);
+      this.content = '';
+      const messageList = document.querySelector('.over');
+      messageList.scrollTo(0, messageList.scrollHeight);
+      // console.log('msg', this.message);
     },
   },
+
   mounted() {
     console.log('WESH ALORS', this.socket);
     this.socket.on('MESSAGE', (data) => {
       this.messages = [...this.messages, data];
-      console.log('MESSSAAAAGEE', this.message, data);
 
       // you can also do this.messages.push(data)
-      // get messages de l'api ( dans lapi new route /messages recupe les 20 derniers msg content , iduser date ) 
+      // get messages de l'api ( dans lapi new route /messages recupe les 20 derniers msg content , iduser date )
     });
-    axios.get('http://localhost:3000/users:id').then((response) => {
-      console.log(response);
-      this.id = response.data;
-      console.log('yuuu', this.id);
+    axios.get('http://localhost:3000/message').then((response) => {
+      console.log('getmsg', response.data.messages);
+      this.messages = response.data.messages;
+      console.log('this.$refs', this.$refs);
+      // this.$refs[response.data.messages.length - 1][0].scrollIntoView({
+      //   behavior: 'smooth',
+      //   block: 'start',
+      //   inline: 'start',
+      // });
+      // this.id = response.data;
+      // console.log('yuuu', this.id);
     });
   },
 };
 </script>
 
 <style>
-#wrip{
-  background-color: #4E538B;
-  border: 4px solid #4E538B;
+#wrip {
+  background-color: #4e538b;
+  border: 4px solid #4e538b;
+  border-radius: 4px;
 }
 /* .card {
   background-color: #4e538b;
@@ -104,15 +116,33 @@ input {
 }
 
 .over {
-    height: 80vh;
-    overflow: auto;
+  height: 75vh;
+  overflow: auto;
 }
-.gorm{
-  display: flex;
+.over::-webkit-scrollbar {
+  width: 13px;
 }
-.card-body {
-   
-    text-align: left;
+.over::-webkit-scrollbar-track {
+  background-color: #333768;
+  border-radius: 20px;
+  border: 0.5px solid #333768;
+}
+.over::-webkit-scrollbar-thumb {
+  background-color: #26294e;
+  border-radius: 20px;
+  border: 0.5px solid #333768;
 }
 
+.gorm {
+  display: flex;
+  padding-top: 4%;
+}
+.card-body {
+  text-align: left;
+}
+/* .wrup {
+  display: flex;
+  flex-direction: row;
+  border: 4px solid black;
+} */
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="pseu">
     <h3>MEMBERS</h3>
-    <ul>
+    <ul class="memberul" v-for="all in all" :key="all">
     <li>{{ all }}</li>
     </ul>
     <!-- {{ all.pseudo.join('-') }} -->
@@ -35,13 +35,19 @@ export default {
 
 <style>
 .pseu {
-  margin-top: 45px;
+  margin-top: 15px;
   display: flex;
   flex-direction: column;
 }
 li{
   list-style: none;
   margin-top: 20px;
+  text-align: left;
+
+}
+.memberul{
+  padding-left: 10px;
+  /* margin-left: 10px; */
 }
 
 </style>

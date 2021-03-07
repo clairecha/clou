@@ -1,9 +1,10 @@
 <template>
 	<b-container>
+			<!-- <h2>CONNEXION</h2> -->
 		<div class="containerr" style="max-width: 500px; text-align: left">
 			<!-- <div >
 		<router-link to="/sign-up" class="btn btn-link">S'inscrire</router-link>
-		<router-link to="/" class="btn btn-link" >Se connecter</router-link>
+		<router-link to="/sign-in" class="btn btn-link" >Se connecter</router-link>
 </div> -->
 			<div v-if="status === 'ERROR'" class="global-message error">
 				ERROR: Please do the right thing
@@ -14,10 +15,11 @@
 			<div v-if="status === 'REQUEST-ERROR'" class="global-message error">
 				OOPS: Something went wrong
 			</div>
-			<form @submit.prevent="submit">
+ 
+			<form @submit.prevent="submit" style="background-color:inherit;">
 				<div class="form-group">
 					<label for="email">Email</label>
-					<input
+					<input					
 						type="email"
 						required
 						placeholder="Enter email"
@@ -56,7 +58,8 @@
 					</div>
 				</div>
 				<br />
-				<b-button type="submit" variant="primary">Se connecter</b-button>
+				<b-button type="submit" variant="primary">Se connecter</b-button>		<router-link to="/sign-up" class="btn btn-link">S'inscrire</router-link>
+
 				<br>
 			</form>
 		</div>
@@ -139,27 +142,34 @@ export default {
 </script>
 
 <style>
+
+
 .error-message {
 	color: red;
 }
-.containerr,
-.container-fluid{
-	margin-right: 2px;
-    margin-left: 2px;
-	width: 100%;
-	
+
+.container {
+  /* background-color: #4e538b; */
+  border-radius: 15px;
+  color: white;
+  width: 40vw;
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* box-shadow: 0.2px 0.2px 2px #585c88;	 */
+  margin-right: 2px;
+  margin-left: 2px;
+  padding-top: 20%;
 }
+
 input:focus {
 	outline: none;
 }
 .error {
 	border: 1px solid red;
 }
-.form {
-	display: inline-block;
-	text-align: center;
-	width: 49%;
-}
+
 .validators {
 	display: inline-block;
 	width: 49%;
@@ -168,6 +178,8 @@ input:focus {
 }
 .input {
 	padding: 5px;
+    background-color: #3a3f76;
+
 }
 element.style {
 	max-width: 500px;

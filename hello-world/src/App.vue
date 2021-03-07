@@ -22,4 +22,5 @@ export default {
   background-color: #3a3f76;
   font-family: 'Comfortaa', cursive;
 }
+
 </style>

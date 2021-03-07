@@ -1,6 +1,8 @@
 <template>
   <div class="wra" >
-    <div class="wrapper" ><Form /></div> 
+    <h1>CLOU</h1>
+<router-link to="/sign-in" class="btn btn-link" >Se connecter</router-link>  
+  <!-- <div class="wrapper" ><Form /></div>  -->
   </div>
 </template>
 
@@ -8,12 +10,12 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 
-import Form from './Form';
+// import Form from './Form';
 
 export default {
   name: 'App',
   components: {
-    Form,
+    // Form,
   },
 };
 </script>
@@ -27,6 +29,13 @@ export default {
   text-align: center;
   color: #6067ac;
   margin-top: 0px;
+  /* background-color: inherit; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* margin-top: 10%; */
+
+
 }
 .tab-content > .active {
   display: flex;

@@ -25,7 +25,7 @@ app.post('/sign-up', function (req, res) {
 
 app.post('/sign-in', function (req, res) {
   db.query(
-    `select * FROM users where email = '${req.body.email}'`,
+    `select * FROM users where email =  '${req.body.email}'`,
     function (err, result) {
       if (err) throw err;
 
@@ -67,7 +67,7 @@ app.get('/members', function (req, res) {
 });
 
 app.get('/profil', function (req, res) {
-  let sql = `SELECT * FROM users WHERE id_user = '${req.body.id_user}'`;
+  let sql = `SELECT * FROM users WHERE id_user =  '${req.body.id_user}'`;
   db.query(sql, function (err, result) {
     if (err) {
       console.log(err);
@@ -77,15 +77,45 @@ app.get('/profil', function (req, res) {
   });
 });
 
-app.get('/users:id', function (req, res) {
-  let sql = `SELECT pseudo FROM users WHERE id_user = '${req.body.id_user}'`;
+app.get('/message', function (req, res) {
+  // get messqges under the last 3 days
+  let sql = `SELECT * FROM message`;
   db.query(sql, function (err, result) {
     if (err) {
       console.log(err);
+      res.send({error: err.code});
     } else {
-      res.send(result);
+      res.send({messages: result});
     }
   });
 });
+
+// app.get('/messages', function (req, res) {
+//   let sql = `SELECT content FROM message WHERE id_user = ? '${req.body.id_user}'`;
+//   db.query(sql, function (err, result) {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       res.send(result);
+//     }
+//   });
+// });
+
+// app.post('/message', function (req, res) {
+//     let postmessage = {
+//       id_message: req.body.message,
+//       id_user: req.body.id_user,
+//       content: req.body.content,
+//       date: req.body.date,
+//     };
+//     const sql = `INSERT INTO message (id_message, id_user, content, date) VALUES
+//     ('${req.body.message}','${req.body.id_user}', '${req.body.content}', '${req.body.date}');`;
+//     db.query(sql, function (err, result) {
+//       if (err) throw err;
+//       console.log('1 msg inserted');
+//       res.send(postmessage);
+//     });
+
+// });
 
 module.exports = app;
