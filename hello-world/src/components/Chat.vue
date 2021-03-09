@@ -47,10 +47,10 @@ export default {
 
   computed: {
     pseudoState() {
-      return this.$store.getters.pseudo;
+      return this.$store.getters.members.user_pseudo;
     },
     idState() {
-      return this.$store.getters.id;
+      return this.$store.getters.members.user_id;
     },
   },
 

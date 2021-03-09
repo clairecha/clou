@@ -6,7 +6,6 @@
       <router-link to="/sign-in" class="btn btn-link">Se connecter</router-link>
       <router-link to="/sign-up" class="btn btn-link">S'inscrire</router-link>
     </div>
-    <!-- <div class="wrapper" ><Form /></div>  -->
   </div>
 </template>
 
@@ -14,13 +13,9 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 
-// import Form from './Form';
-
 export default {
   name: 'App',
-  components: {
-    // Form,
-  },
+  components: {},
 };
 </script>
 

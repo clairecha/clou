@@ -13,19 +13,23 @@ app.post('/sign-up', function (req, res) {
       email: req.body.email,
       password: req.body.password,
     };
-    const sql = `INSERT INTO users (id_user, pseudo, email, password) VALUES 
-    ('${req.body.id_user}','${req.body.pseudo}', '${req.body.email}', '${hash}');`;
-    db.query(sql, function (err, result) {
-      if (err) throw err;
-      console.log('1 record inserted');
-      res.send(postCustomer);
-    });
+    db.query(
+      `INSERT INTO users (id_user, pseudo, email, password) VALUES = ?`,
+      [postCustomer],
+      function (err, result) {
+        if (err) throw err;
+        console.log('1 record inserted');
+        res.send(postCustomer);
+      }
+    );
   });
 });
 
 app.post('/sign-in', function (req, res) {
+  const email = req.body.email;
   db.query(
-    `select * FROM users where email =  '${req.body.email}'`,
+    `select * FROM users where email =  ?`,
+    [email],
     function (err, result) {
       if (err) throw err;
 
@@ -37,7 +41,11 @@ app.post('/sign-in', function (req, res) {
           if (resulta) {
             console.log('you are authenticated');
             let token = jwt.sign(
-              {user_id: result[0].id_user, user_pseudo: pseudo},
+              {
+                user_id: result[0].id_user,
+                user_pseudo: pseudo,
+                admin_id: result[0].admin,
+              },
               'clouSecret',
               {expiresIn: '1h'}
             );
@@ -61,24 +69,28 @@ app.get('/members', function (req, res) {
       for (let i = 0; i < result.length; i++) {
         resu.push(result[i]);
       }
-      res.send({membres: resu});
+      res.send({members: resu});
     }
   });
 });
 
 app.get('/profil', function (req, res) {
-  let sql = `SELECT * FROM users WHERE id_user =  '${req.body.id_user}'`;
-  db.query(sql, function (err, result) {
-    if (err) {
-      console.log(err);
-    } else {
-      res.send(result);
+  const id_user = req.body.id_user;
+  db.query(
+    `SELECT * FROM users WHERE id_user =  ? `,
+    [id_user],
+    function (err, result) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
     }
-  });
+  );
 });
 
 app.get('/message', function (req, res) {
-  let sql = `SELECT * FROM message `;
+  const sql = `SELECT * FROM message `;
   db.query(sql, function (err, result) {
     if (err) {
       console.log(err);
@@ -95,6 +107,22 @@ app.delete('/message/:id', function (req, res) {
   db.query(
     `DELETE FROM message WHERE id_message = ? `,
     [id_message],
+    function (err, result) {
+      console.log('result', result);
+      if (err) throw err;
+      res.send({
+        success: 'succesully deleted',
+      });
+    }
+  );
+});
+
+app.delete('/members/:id', function (req, res) {
+  const id_user = req.params.id;
+  console.log('id_user', req.params.id);
+  db.query(
+    `DELETE FROM users WHERE id_user = ? `,
+    [id_user],
     function (err, result) {
       console.log('result', result);
       if (err) throw err;

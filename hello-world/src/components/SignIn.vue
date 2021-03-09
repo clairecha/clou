@@ -114,14 +114,11 @@ export default {
           if (response.data == 'sorry we dont know this user') {
             this.status = 'ERROR';
           } else {
-            const decoded = jwt.decode(response.data);
-            console.log('token decodé =', decoded);
-            console.log('decoded', decoded);
+            const members = jwt.decode(response.data);
+            console.log('members', members);
             this.$store.dispatch('addToken', response.data);
-            this.$store.dispatch('addPseudo', decoded.user_pseudo);
-            this.$store.dispatch('addId', decoded.user_id);
-            console.log('id user', decoded.user_id);
-
+            this.$store.dispatch('addMembers', members);
+            // console.log('id user', members.user_);
             this.status = 'REQUEST-SUCCESS';
             this.$router.push('/salon');
           }
@@ -186,6 +183,7 @@ element.style {
   top: 7px;
   color: #6067ac;
 }
+
 
 /* ------------------------------------------------------------------- */
 

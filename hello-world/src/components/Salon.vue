@@ -1,14 +1,22 @@
 <template>
   <div class="wrapp">
     <b-navbar class="navbar" toggleable>
-      <b-navbar-brand><ConnectedHeader /></b-navbar-brand
-      ><i class="fal fa-ellipsis-h"></i>
-      <b-navbar-brand
-        ><b-button class="deco" @click="clickRemove()" variant="danger" href="#"
-          >Sign-out</b-button
-        ></b-navbar-brand
-      >
+      <b-navbar-brand class="pseudo"><ConnectedHeader /></b-navbar-brand>
+      <div>
+        <router-link to="/salon"><h2 class="clou2">CLOU</h2></router-link>
+        <div>
+          <router-link to="/menu"
+            ><img
+              color="white"
+              width="30px"
+              height="30px"
+              src="../assets/next.png"
+              alt="icon-menu"
+          /></router-link>
+        </div>
+      </div>
     </b-navbar>
+
     <div class="chaat">
       <div class="divee"></div>
 
@@ -16,10 +24,30 @@
         <Chat />
       </b-tabs>
 
-      <div class="member">
-        <h2>MEMBRES</h2>
+      <div class="right">
+        <div v-if="admin">
+          <router-link class="dash" to="/dashboard"
+            ><b-button style="margin-top: 30%;" variant="primary"
+              >Dashboard</b-button
+            ></router-link
+          >
+        </div>
+        <div style="margin-top: 20%;" class="member">
+          <Gid />
+        </div>
 
-        <Gid />
+        <h2 style="margin-top: 30%;">MEMBRES</h2>
+
+        <b-navbar-brand
+          ><b-button
+            style="margin-top: 10%;"
+            class="deco"
+            @click="clickRemove()"
+            variant="danger"
+            href="#"
+            >Déconnexion</b-button
+          ></b-navbar-brand
+        >
       </div>
     </div>
   </div>
@@ -44,6 +72,11 @@ export default {
     Gid,
     Chat,
   },
+  computed: {
+    admin() {
+      return this.$store.getters.members.admin_id;
+    },
+  },
 
   methods: {
     clickRemove() {
@@ -59,6 +92,12 @@ export default {
   display: flex;
   flex-direction: row;
 }
+.nav-tabs {
+  border-bottom: 0px solid #dee2e6;
+}
+.clou2 {
+  color: #6067ac;
+}
 .fal {
   display: flex;
 }
@@ -67,15 +106,36 @@ template {
 
   width: auto;
 }
-
+.right {
+  display: flex;
+  flex-direction: column-reverse;
+}
 .member {
   border: 4px solid #4e538b;
-  width: 15%;
+  width: auto;
   margin-top: 3%;
   padding-top: 2%;
-  margin-left: 3%;
+  margin-left: 8%;
+  margin-right: 8%;
   text-align: center;
-  height: 80vh;
+  height: 70vh;
+  overflow: auto;
+}
+img {
+  visibility: hidden;
+}
+.member::-webkit-scrollbar {
+  width: 13px;
+}
+.member::-webkit-scrollbar-track {
+  background-color: #333768;
+  border-radius: 20px;
+  border: 0.5px solid #333768;
+}
+.member::-webkit-scrollbar-thumb {
+  background-color: #26294e;
+  border-radius: 20px;
+  border: 0.5px solid #333768;
 }
 .navbar {
   display: flex;
@@ -102,6 +162,7 @@ template {
     display: flex;
     flex-direction: column;
   }
+
   .gorm {
     display: flex;
     padding-top: 4%;
@@ -112,14 +173,28 @@ template {
     display: flex;
     flex-direction: row;
   }
-  /* .btn:not(:disabled):not(.disabled) {
+  .pseudo {
     display: none;
-  } */
-  .member {
+  }
+  .clou2 {
+    position: absolute;
+    left: 0px;
+  }
+  .right {
     display: none;
   }
   .navbar {
     height: 10vh;
+  }
+  .over {
+    height: 68vh;
+  }
+  img {
+    visibility: visible;
+  }
+  .navbar {
+    justify-content: flex-end;
+    /* padding: 0.5rem 1rem; */
   }
 }
 </style>
