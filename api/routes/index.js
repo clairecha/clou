@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 
 app.post('/sign-up', function (req, res) {
   bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
-    let postCustomer = {
+    const postCustomer = {
       id_user: req.body.id_user,
       pseudo: req.body.pseudo,
       email: req.body.email,
@@ -61,7 +61,7 @@ app.get('/members', function (req, res) {
       for (let i = 0; i < result.length; i++) {
         resu.push(result[i]);
       }
-      res.send({pseudo: resu});
+      res.send({membres: resu});
     }
   });
 });
@@ -78,8 +78,7 @@ app.get('/profil', function (req, res) {
 });
 
 app.get('/message', function (req, res) {
-  // get messqges under the last 3 days
-  let sql = `SELECT * FROM message`;
+  let sql = `SELECT * FROM message `;
   db.query(sql, function (err, result) {
     if (err) {
       console.log(err);
@@ -90,32 +89,20 @@ app.get('/message', function (req, res) {
   });
 });
 
-// app.get('/messages', function (req, res) {
-//   let sql = `SELECT content FROM message WHERE id_user = ? '${req.body.id_user}'`;
-//   db.query(sql, function (err, result) {
-//     if (err) {
-//       console.log(err);
-//     } else {
-//       res.send(result);
-//     }
-//   });
-// });
-
-// app.post('/message', function (req, res) {
-//     let postmessage = {
-//       id_message: req.body.message,
-//       id_user: req.body.id_user,
-//       content: req.body.content,
-//       date: req.body.date,
-//     };
-//     const sql = `INSERT INTO message (id_message, id_user, content, date) VALUES
-//     ('${req.body.message}','${req.body.id_user}', '${req.body.content}', '${req.body.date}');`;
-//     db.query(sql, function (err, result) {
-//       if (err) throw err;
-//       console.log('1 msg inserted');
-//       res.send(postmessage);
-//     });
-
-// });
+app.delete('/message/:id', function (req, res) {
+  const id_message = req.params.id;
+  console.log('id_message', req.params.id);
+  db.query(
+    `DELETE FROM message WHERE id_message = ? `,
+    [id_message],
+    function (err, result) {
+      console.log('result', result);
+      if (err) throw err;
+      res.send({
+        success: 'succesully deleted',
+      });
+    }
+  );
+});
 
 module.exports = app;

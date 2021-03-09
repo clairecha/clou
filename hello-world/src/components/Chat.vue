@@ -4,20 +4,18 @@
       <div class="card-title"></div>
       <div class="over">
         <div class="messages" v-for="(msg, index) in messages" :key="index">
-          <p :ref="index">
-            <span class="font-weight-bold">{{ msg.pseudo }}: </span
-            >{{ msg.content }}
+          <p style="font-size: 1em;" :ref="index">
+            <span style="font-size: 1.3em;" class="font-weight-bold"
+              >{{ msg.pseudo }} : <br
+            /></span>
+            {{ msg.content }}
           </p>
         </div>
       </div>
 
       <form @submit.prevent="sendMessage">
-        <div class="gorm-group">
-          <!-- <label for="pseudo">pseudo:</label> -->
-          <!-- <input type="text" v-model="pseudo" class="form-control" /> -->
-        </div>
+        <div class="gorm-group"></div>
         <div class="gorm">
-          <!-- <label for="message">Message:</label> -->
           <input
             placeholder="Entrer votre message ..."
             type="text"
@@ -140,9 +138,10 @@ input {
 .card-body {
   text-align: left;
 }
-/* .wrup {
-  display: flex;
-  flex-direction: row;
-  border: 4px solid black;
-} */
+.form-control {
+  margin-right: 3%;
+}
+p {
+  color: #afb4e4;
+}
 </style>

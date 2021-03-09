@@ -1,23 +1,22 @@
-import "es6-promise/auto";
-import Vue from "vue";
-import Vuex from "vuex";
-import createPersistedState from "vuex-persistedstate";
+import 'es6-promise/auto';
+import Vue from 'vue';
+import Vuex from 'vuex';
+import createPersistedState from 'vuex-persistedstate';
 
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
-    token: false, 
-    pseudo: "",
-      id: "",
-    
+    token: false,
+    pseudo: '',
+    id: '',
   },
   mutations: {
     ADD_TOKEN: (state, token) => {
       state.token = token;
       console.log(state.token);
     },
-    REMOVE_TOKEN: state => {
+    REMOVE_TOKEN: (state) => {
       state.token = false;
     },
     ADD_PSEUDO: (state, pseudo) => {
@@ -28,33 +27,31 @@ const store = new Vuex.Store({
     },
   },
   getters: {
-    token: state => {
+    token: (state) => {
       return state.token;
     },
-    pseudo: state => {
+    pseudo: (state) => {
       return state.pseudo;
     },
-    id: state => {
+    id: (state) => {
       return state.id;
     },
-
   },
   actions: {
     addToken(context, token) {
-      context.commit("ADD_TOKEN", token); //pour l'envoyer à la mutation
+      context.commit('ADD_TOKEN', token); //pour l'envoyer à la mutation
     },
     removeToken(context) {
-      context.commit("REMOVE_TOKEN");
+      context.commit('REMOVE_TOKEN');
     },
     addId(context, id) {
-      context.commit("ADD_ID", id);
+      context.commit('ADD_ID', id);
     },
     addPseudo(context, pseudo) {
-      context.commit("ADD_PSEUDO", pseudo);
+      context.commit('ADD_PSEUDO', pseudo);
     },
-  
   },
-  plugins: [createPersistedState()]
+  plugins: [createPersistedState()],
 });
 
 export default store;

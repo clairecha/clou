@@ -1,121 +1,142 @@
 <template>
-  <div class="wrapp">
-    <b-navbar class="navbar" toggleable>
-      <b-navbar-brand><ConnectedHeader /></b-navbar-brand>
-    <!-- {{ pseuG }} {{ id }} {{ pseudo }} -->
-      <b-navbar-brand
-        ><b-button @click="clickRemove()" variant="danger" href="#"
-          >Sign-out</b-button
-        ></b-navbar-brand
-      >
-    </b-navbar>
-    <div class="chaat">
-      <div class="divee"></div>
+  <div>
+    <h2 style="font-size: 2.5em;  margin-top: 6%;">
+      BIENVENUE DANS LE DASHBOARD
+    </h2>
+    <h5 style="color: red;">
+      Click sur un message ou un membre pour le supprimer du salon !
+    </h5>
 
-      <b-tabs content-class="mt-3">
-        <!-- <b-tab title="ContactList" active><ContactList /> </b-tab>
-        <b-tab title="AddContactForm"><AddContactForm /> </b-tab> -->
-
-        <Chat />
-      </b-tabs>
-
-      <div class="member"><Gid /></div>
+    <div class="title">
+      <h2>MESSAGES</h2>
+      <h2>MEMBRES</h2>
     </div>
+    <div class="wrap">
+      <div class="wrapper">
+        <div
+          @click="clickDelete()"
+          class="messages"
+          v-for="(msg, index) in messages"
+          :key="index"
+        >
+          <p style="font-size: 1em;" :ref="index">
+            <span style="font-size: 1.5em;" class="font-weight-bold"
+              >{{ msg.pseudo }} :
+            </span>
+            {{ msg.content }}
+          </p>
+        </div>
+      </div>
+      <div class="wrapper" style="font-size: 1.5em;">
+        <Gid />
+      </div>
+    </div>
+    <router-link to="/salon"
+      ><b-button class="buttons" variant="primary"
+        >Retourner au salon</b-button
+      ></router-link
+    >
   </div>
 </template>
 
 <script>
-import ConnectedHeader from './ConnectedHeader';
-import Chat from './Chat';
 import Gid from './Gid';
+import axios from 'axios';
 
 export default {
   name: 'Dashboard',
+
+  components: {
+    Gid,
+  },
   data() {
     return {
-      id: Boolean,
-      pseu:'',
-      pseudo:'',
+      messages: '',
     };
   },
-  components: {
-    ConnectedHeader,
-    Gid,
-    Chat,
-  },
-  
-  //  computed:{
-  //   pseuG() {
-  //     console.log('contactG', this.$store.getters.pseudo);
-  //     // let psou = [];
-  //     // this.pseu = psou;
-  //     // psou.push(this.$store.getters.id);
-  //     return this.$store.getters.id;
-  //   },
-  //  },
   methods: {
-    clickRemove() {
-      this.$store.dispatch('removeToken');
-      this.$router.push('/');
+    clickDelete() {
+      console.log('toto', this.form);
+      axios
+        .delete('http://localhost:3000/membre')
+        .then((response) => {
+          console.log('delete', response.data.messages);
+        })
+
+        .catch((error) => {
+          console.log(error);
+        });
     },
-    
   },
-  
-//     mounted() {
-//     axios.get('http://localhost:3000/members').then((response) => {
-//       console.log('data.dash',response.data.pseudo);
-//       let idUser = [];
-//       this.id = idUser;
-//       let pseudoUser = [];
-//       this.pseudo = pseudoUser;
-//       for (let i = 0; i < response.data.pseudo.length; i++) {
-//       console.log('boucleid_user',response.data.pseudo[i].id_user)
-//       idUser.push(response.data.pseudo[i].id_user);
-//       pseudoUser.push(response.data.pseudo[i].pseudo);
-// }
-//       if(idUser == this.pseu){
-//       console.log('pseudoUser',pseudoUser)
-//       return true;
-// }
-
-
-//     });
-    
-//   },
+  mounted() {
+    axios.get('http://localhost:3000/message').then((response) => {
+      this.messages = response.data.messages;
+    });
+  },
 };
 </script>
 
 <style>
-.chaat {
+.active {
+  text-decoration: line-through;
+}
+.wrap {
   display: flex;
   flex-direction: row;
-}
-template{
-    background-color: #4e538b;
-
-  width: auto;
+  justify-content: space-around;
+  width: 80vw;
+  text-align: left;
 }
 
-.member {
-  border: 4px solid #4E538B;
-  width: 15%;
+.wrapper {
+  padding-top: 5px;
+}
+.wrapper {
+  height: 50vh;
+  overflow: auto;
+  width: 35%;
+  border: 4px solid #333768;
+  padding: 2%;
+  margin-top: 2%;
+}
+.wrapper::-webkit-scrollbar {
+  width: 13px;
+}
+.wrapper::-webkit-scrollbar-track {
+  background-color: #333768;
+  border-radius: 20px;
+  border: 0.5px solid #333768;
+}
+.wrapper::-webkit-scrollbar-thumb {
+  background-color: #26294e;
+  border-radius: 20px;
+  border: 0.5px solid #333768;
+}
+.title {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 4%;
+}
+p {
+  cursor: pointer;
+}
+.messages:hover {
+  background-color: #424885;
+}
+.buttons {
   margin-top: 3%;
-  margin-left: 3%;
-  text-align: center;
-}
-.navbar {
-  display: flex;
-  flex-direction: column-reverse;
-  height: 96vh;
 }
 
-.wrapp {
-  background-color: #4e538b;
-  display: flex;
-  height: 600px;
-}
-.nav-tabs {
-    border-bottom: 0px solid #dee2e6;
-}
+/* ------------------------------------------------------------------- */
 
+@media screen and (max-width: 376px) {
+  .wrap {
+    display: flex;
+    flex-direction: column;
+  }
+  .wrapper {
+    width: auto;
+    margin-left: 20%;
+  }
+}
 </style>
