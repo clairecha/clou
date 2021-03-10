@@ -18,10 +18,6 @@
               style="font-size: 1em;"
               :ref="index"
             >
-              <span style="font-size: 1.5em;" class="font-weight-bold"
-                >{{ msg.pseudo }} :
-              </span>
-              {{ msg.content }}
               <img
                 class="trash"
                 width="30px"
@@ -29,6 +25,10 @@
                 src="../assets/remove.png"
                 alt="delete_btn"
               />
+              <span style="font-size: 1.5em;" class="font-weight-bold">
+                {{ msg.pseudo }} :
+              </span>
+              {{ msg.content }}
             </p>
           </div>
         </div>

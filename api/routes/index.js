@@ -5,8 +5,6 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const jwt = require('jsonwebtoken');
 
-
-
 app.post('/sign-up', function (req, res) {
   if (req.body.password.length >= 8) {
     bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
