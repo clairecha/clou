@@ -25,7 +25,6 @@ export default {
   },
   mounted() {
     axios.get('http://localhost:3000/members').then((response) => {
-      console.log('data', response);
       const name = [];
       this.all = name;
       for (let i = 0; i < response.data.members.length; i++) {

@@ -9,7 +9,7 @@ export default {
   name: 'ConnectedHeader',
   computed: {
     pseudo() {
-      return this.$store.getters.members.user_pseudo;
+      return this.$store.getters.member.user_pseudo;
     },
   },
 };

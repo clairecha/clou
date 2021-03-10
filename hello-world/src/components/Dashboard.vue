@@ -13,11 +13,22 @@
         <h2>MESSAGES :</h2>
         <div class="wrapper">
           <div class="messages" v-for="(msg, index) in messages" :key="index">
-            <p @click="clickDelete()" style="font-size: 1em;" :ref="index">
+            <p
+              @click="clickDelete(msg.id_message)"
+              style="font-size: 1em;"
+              :ref="index"
+            >
               <span style="font-size: 1.5em;" class="font-weight-bold"
                 >{{ msg.pseudo }} :
               </span>
               {{ msg.content }}
+              <img
+                class="trash"
+                width="30px"
+                height="30px"
+                src="../assets/remove.png"
+                alt="delete_btn"
+              />
             </p>
           </div>
         </div>
@@ -55,10 +66,12 @@ export default {
   methods: {
     clickDelete(id) {
       axios
-        .delete('http://localhost:3000/message:id' + id)
+        .delete(`http://localhost:3000/message/${id}`)
         .then((response) => {
-          console.log('delete', response.data.messages);
-          this.messages = response.data.messages;
+          console.log('delete', response.data.message);
+          this.messages = this.messages.filter((msg) => {
+            return msg.id_message != id;
+          });
         })
         .catch((error) => {
           console.log(error);
@@ -66,8 +79,9 @@ export default {
     },
   },
   mounted() {
-    axios.get('http://localhost:3000/message').then((response) => {
+    axios.get('http://localhost:3000/messages').then((response) => {
       this.messages = response.data.messages;
+      console.log('get', response.data.messages);
     });
   },
 };
@@ -88,7 +102,11 @@ export default {
   width: 40%;
   margin-top: 3%;
 }
-
+.trash {
+  visibility: visible;
+  align-self: flex-end;
+  cursor: pointer;
+}
 .wrapper {
   padding-top: 5px;
 }
@@ -118,9 +136,7 @@ export default {
   justify-content: space-around;
   margin-top: 4%;
 }
-p {
-  cursor: pointer;
-}
+
 .messages:hover {
   background-color: #424885;
 }

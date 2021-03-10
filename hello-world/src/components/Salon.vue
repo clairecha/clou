@@ -62,7 +62,7 @@ export default {
   name: 'Dashboard',
   data() {
     return {
-      id: Boolean,
+      id: '',
       pseu: '',
       pseudo: '',
     };
@@ -74,7 +74,7 @@ export default {
   },
   computed: {
     admin() {
-      return this.$store.getters.members.admin_id;
+      return this.$store.getters.member.admin_id;
     },
   },
 
@@ -194,7 +194,6 @@ img {
   }
   .navbar {
     justify-content: flex-end;
-    /* padding: 0.5rem 1rem; */
   }
 }
 </style>

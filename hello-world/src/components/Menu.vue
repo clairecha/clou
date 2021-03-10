@@ -42,10 +42,10 @@ export default {
   components: {Gid},
   computed: {
     pseudo() {
-      return this.$store.getters.members.user_pseudo;
+      return this.$store.getters.member.user_pseudo;
     },
     admin() {
-      return this.$store.getters.members.admin_id;
+      return this.$store.getters.member.admin_id;
     },
   },
   methods: {
@@ -57,6 +57,8 @@ export default {
 };
 </script>
 <style>
+
+
 /* ------------------------------------------------------------------- */
 
 @media screen and (max-width: 376px) {

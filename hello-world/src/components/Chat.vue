@@ -47,10 +47,10 @@ export default {
 
   computed: {
     pseudoState() {
-      return this.$store.getters.members.user_pseudo;
+      return this.$store.getters.member.user_pseudo;
     },
     idState() {
-      return this.$store.getters.members.user_id;
+      return this.$store.getters.member.user_id;
     },
   },
 
@@ -66,7 +66,6 @@ export default {
       this.content = '';
       const messageList = document.querySelector('.over');
       messageList.scrollTo(0, messageList.scrollHeight);
-      // console.log('msg', this.message);
     },
   },
 
@@ -74,21 +73,10 @@ export default {
     console.log('WESH ALORS', this.socket);
     this.socket.on('MESSAGE', (data) => {
       this.messages = [...this.messages, data];
-
-      // you can also do this.messages.push(data)
-      // get messages de l'api ( dans lapi new route /messages recupe les 20 derniers msg content , iduser date )
     });
-    axios.get('http://localhost:3000/message').then((response) => {
+    axios.get('http://localhost:3000/messages').then((response) => {
       console.log('getmsg', response.data.messages);
       this.messages = response.data.messages;
-      console.log('this.$refs', this.$refs);
-      // this.$refs[response.data.messages.length - 1][0].scrollIntoView({
-      //   behavior: 'smooth',
-      //   block: 'start',
-      //   inline: 'start',
-      // });
-      // this.id = response.data;
-      // console.log('yuuu', this.id);
     });
   },
 };
@@ -100,10 +88,6 @@ export default {
   border: 4px solid #4e538b;
   border-radius: 4px;
 }
-/* .card {
-  background-color: #4e538b;
-} */
-
 input {
   width: 60%;
   background-color: #7277ab;

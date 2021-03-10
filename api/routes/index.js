@@ -6,23 +6,20 @@ const saltRounds = 10;
 const jwt = require('jsonwebtoken');
 
 app.post('/sign-up', function (req, res) {
-  bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
-    const postCustomer = {
-      id_user: req.body.id_user,
-      pseudo: req.body.pseudo,
-      email: req.body.email,
-      password: req.body.password,
-    };
-    db.query(
-      `INSERT INTO users (id_user, pseudo, email, password) VALUES = ?`,
-      [postCustomer],
-      function (err, result) {
+  if (req.body.password.length >= 8) {
+    bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
+      const postCustomer = {
+        pseudo: req.body.pseudo,
+        email: req.body.email,
+        password: hash,
+      };
+      db.query(`INSERT INTO users SET ?`, postCustomer, function (err, result) {
         if (err) throw err;
-        console.log('1 record inserted');
-        res.send(postCustomer);
-      }
-    );
-  });
+        console.log('1 record inserted', result);
+        res.status(200).send({id_user: result.insertId});
+      });
+    });
+  }
 });
 
 app.post('/sign-in', function (req, res) {
@@ -37,23 +34,30 @@ app.post('/sign-in', function (req, res) {
       else {
         let pseudo = result[0].pseudo;
         let hash = result[0].password;
-        bcrypt.compare(`${req.body.password}`, hash, function (err, resulta) {
-          if (resulta) {
-            console.log('you are authenticated');
-            let token = jwt.sign(
-              {
-                user_id: result[0].id_user,
-                user_pseudo: pseudo,
-                admin_id: result[0].admin,
-              },
-              'clouSecret',
-              {expiresIn: '1h'}
-            );
-            res.status(200).send(token);
-          } else {
-            res.status(200).send('sorry we dont know this user');
+        bcrypt.compare(
+          `${req.body.password}`,
+          hash,
+          function (err, bcriptResult) {
+            if (bcriptResult) {
+              const response = {
+                member: {
+                  user_id: result[0].id_user,
+                  user_pseudo: pseudo,
+                  admin_id: result[0].admin,
+                },
+                token: jwt.sign({email: email}, 'clouSecret', {
+                  expiresIn: 3600,
+                }),
+              };
+              console.log('you are authenticated');
+
+              res.status(200).send(response);
+            } else {
+              console.log('errsignin', err);
+              res.status(203).send('sorry we dont know this user');
+            }
           }
-        });
+        );
       }
     }
   );
@@ -89,7 +93,7 @@ app.get('/profil', function (req, res) {
   );
 });
 
-app.get('/message', function (req, res) {
+app.get('/messages', function (req, res) {
   const sql = `SELECT * FROM message `;
   db.query(sql, function (err, result) {
     if (err) {
@@ -111,7 +115,7 @@ app.delete('/message/:id', function (req, res) {
       console.log('result', result);
       if (err) throw err;
       res.send({
-        success: 'succesully deleted',
+        message: 'succesully deleted',
       });
     }
   );

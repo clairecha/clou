@@ -69,7 +69,7 @@
 
 <script>
 import axios from 'axios';
-import jwt from 'jsonwebtoken';
+// import jwt from 'jsonwebtoken';
 import {required, minLength, email} from 'vuelidate/lib/validators';
 
 export default {
@@ -114,11 +114,10 @@ export default {
           if (response.data == 'sorry we dont know this user') {
             this.status = 'ERROR';
           } else {
-            const members = jwt.decode(response.data);
-            console.log('members', members);
-            this.$store.dispatch('addToken', response.data);
-            this.$store.dispatch('addMembers', members);
-            // console.log('id user', members.user_);
+            const token = response.data.token;
+            const member = response.data.member;
+            this.$store.dispatch('addToken', token);
+            this.$store.dispatch('getMember', member);
             this.status = 'REQUEST-SUCCESS';
             this.$router.push('/salon');
           }
@@ -183,7 +182,6 @@ element.style {
   top: 7px;
   color: #6067ac;
 }
-
 
 /* ------------------------------------------------------------------- */
 

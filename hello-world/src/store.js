@@ -8,7 +8,7 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   state: {
     token: false,
-    members: '',
+    member: '',
   },
   mutations: {
     ADD_TOKEN: (state, token) => {
@@ -18,16 +18,16 @@ const store = new Vuex.Store({
     REMOVE_TOKEN: (state) => {
       state.token = false;
     },
-    ADD_MEMBERS: (state, members) => {
-      state.members = members;
+    GET_MEMBER: (state, member) => {
+      state.member = member;
     },
   },
   getters: {
     token: (state) => {
       return state.token;
     },
-    members: (state) => {
-      return state.members;
+    member: (state) => {
+      return state.member;
     },
   },
   actions: {
@@ -37,8 +37,8 @@ const store = new Vuex.Store({
     removeToken(context) {
       context.commit('REMOVE_TOKEN');
     },
-    addMembers(context, members) {
-      context.commit('ADD_MEMBERS', members);
+    getMember(context, member) {
+      context.commit('GET_MEMBER', member);
     },
   },
   plugins: [createPersistedState()],

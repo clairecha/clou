@@ -82,7 +82,7 @@ https://www.positronx.io/vue-js-forms-tutorial-form-validation-in-vue-with-vueli
             >Password field is required</span
           >
           <span v-if="!$v.userForm.password.minLength"
-            >Password should be at least 5 characters long</span
+            >Password should be at least 8 characters long</span
           >
         </div>
       </div>
@@ -125,7 +125,7 @@ export default {
       },
       password: {
         required,
-        minLength: minLength(5),
+        minLength: minLength(8),
       },
     },
   },
