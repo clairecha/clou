@@ -7,13 +7,13 @@
 		<router-link to="/sign-in" class="btn btn-link" >Se connecter</router-link>
 </div> -->
       <div v-if="status === 'ERROR'" class="global-message error">
-        ERROR: Please do the right thing
+        ERROR: Un ou plusieurs des champs sont invalides
       </div>
       <div v-if="status === 'REQUEST-SUCCESS'" class="global-message success">
-        SUCCESS: Welcome onboard
+        SUCCESS: Bienvenue
       </div>
       <div v-if="status === 'REQUEST-ERROR'" class="global-message error">
-        OOPS: Something went wrong
+        OOPS: Une erreur s'est produite
       </div>
 
       <form @submit.prevent="submit" style="background-color:inherit;">
@@ -22,7 +22,7 @@
           <input
             type="email"
             required
-            placeholder="Enter email"
+            placeholder="Entrer email"
             v-model="form.email"
             id="input-1"
             name="email"
@@ -33,17 +33,17 @@
             v-if="isSubmitted && !$v.email.required"
             class="invalid-feedback"
           >
-            <span v-if="$v.email.required">Email field is required</span>
-            <span v-if="!$v.email.email">Please provide valid email</span>
+            <span v-if="$v.email.required">L'email entré est incorrect.</span>
+            <span v-if="!$v.email.email">L'email entré est incorrect.</span>
           </div>
         </div>
 
         <div class="form-group">
-          <label for="password">Password</label>
+          <label for="password">Mot de passe</label>
           <input
             type="password"
             required
-            placeholder="Enter password"
+            placeholder="Entrer mot de passe"
             v-model="form.password"
             id="input-2"
             name="password"
@@ -54,7 +54,9 @@
             v-if="isSubmitted && $v.password.$error"
             class="invalid-feedback"
           >
-            <span v-if="$v.password.required">Password field is required</span>
+            <span v-if="$v.password.required"
+              >Le mot de passe entré est incorrect.</span
+            >
           </div>
         </div>
         <br />
@@ -69,7 +71,6 @@
 
 <script>
 import axios from 'axios';
-// import jwt from 'jsonwebtoken';
 import {required, minLength, email} from 'vuelidate/lib/validators';
 
 export default {
@@ -137,7 +138,6 @@ export default {
 }
 
 .container {
-  /* background-color: #4e538b; */
   border-radius: 15px;
   color: white;
   width: 40vw;
@@ -145,7 +145,6 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* box-shadow: 0.2px 0.2px 2px #585c88;	 */
   margin-right: 2px;
   margin-left: 2px;
   padding-top: 20%;

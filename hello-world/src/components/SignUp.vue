@@ -10,13 +10,13 @@ https://www.positronx.io/vue-js-forms-tutorial-form-validation-in-vue-with-vueli
 		<router-link to="/sign-in" class="btn btn-link" >Se connecter</router-link>
 </div> -->
     <div v-if="status === 'ERROR'" class="global-message error">
-      ERROR: Please do the right thing 🤙
+      ERROR: Un ou plusieurs des champs sont invalides
     </div>
     <div v-if="status === 'REQUEST-SUCCESS'" class="global-message success">
-      SUCCESS: Welcome onboard 💪
+      SUCCESS: Bienvenue
     </div>
     <div v-if="status === 'REQUEST-ERROR'" class="global-message error">
-      OOPS: Something went wrong 🙀
+      OOPS: Une erreur s'est produite
     </div>
 
     <form @submit.prevent="submit">
@@ -25,7 +25,7 @@ https://www.positronx.io/vue-js-forms-tutorial-form-validation-in-vue-with-vueli
         <input
           type="text"
           v-model="userForm.pseudo"
-          placeholder="Enter pseudo"
+          placeholder="Entrer pseudo"
           id="name"
           name="name"
           class="form-control"
@@ -35,7 +35,7 @@ https://www.positronx.io/vue-js-forms-tutorial-form-validation-in-vue-with-vueli
           v-if="isSubmitted && !$v.userForm.pseudo.required"
           class="invalid-feedback"
         >
-          Pseudo field is required
+          Ce champ est obligatoire.
         </div>
       </div>
 
@@ -44,7 +44,7 @@ https://www.positronx.io/vue-js-forms-tutorial-form-validation-in-vue-with-vueli
         <input
           type="email"
           v-model="userForm.email"
-          placeholder="Enter email"
+          placeholder="Entrer email"
           id="email"
           name="email"
           class="form-control"
@@ -55,20 +55,20 @@ https://www.positronx.io/vue-js-forms-tutorial-form-validation-in-vue-with-vueli
           class="invalid-feedback"
         >
           <span v-if="!$v.userForm.email.required"
-            >Email field is required</span
+            >Ce champ est obligatoire</span
           >
           <span v-if="!$v.userForm.email.email"
-            >Please provide valid email</span
+            >L'email entré est incorrect.</span
           >
         </div>
       </div>
 
       <div class="form-group">
-        <label for="password">Password</label>
+        <label for="password">Mot de passe</label>
         <input
           type="password"
           v-model="userForm.password"
-          placeholder="Enter password"
+          placeholder="Entrer mot de passe"
           id="password"
           name="password"
           class="form-control"
@@ -79,10 +79,10 @@ https://www.positronx.io/vue-js-forms-tutorial-form-validation-in-vue-with-vueli
           class="invalid-feedback"
         >
           <span v-if="!$v.userForm.password.required"
-            >Password field is required</span
+            >Ce champ est obligatoire</span
           >
           <span v-if="!$v.userForm.password.minLength"
-            >Password should be at least 8 characters long</span
+            >Le mot de passe doit contenir au moins 8 caractères</span
           >
         </div>
       </div>
@@ -161,7 +161,6 @@ export default {
 
 <style>
 .container {
-  /* background-color: #4e538b; */
   border-radius: 15px;
   color: white;
   width: 40vw;
@@ -169,7 +168,6 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* box-shadow: 0.2px 0.2px 2px #585c88;	 */
   margin-right: 2px;
   margin-left: 2px;
   padding-top: 20%;
@@ -216,9 +214,4 @@ input:focus {
 .input {
   padding: 5px;
 }
-/* .btn:not(:disabled):not(.disabled) {
-    cursor: pointer;
-    width: 40%;
-    margin-left: 27%;
-} */
 </style>

@@ -32,7 +32,7 @@ const store = new Vuex.Store({
   },
   actions: {
     addToken(context, token) {
-      context.commit('ADD_TOKEN', token); //pour l'envoyer à la mutation
+      context.commit('ADD_TOKEN', token); 
     },
     removeToken(context) {
       context.commit('REMOVE_TOKEN');

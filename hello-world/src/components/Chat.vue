@@ -41,7 +41,6 @@ export default {
       content: '',
       messages: [],
       socket: io('localhost:3000', {withCredentials: true}),
-      // getMessages: '',
     };
   },
 
